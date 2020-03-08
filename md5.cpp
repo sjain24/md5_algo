@@ -51,7 +51,14 @@ int main()
 
 	cout<<"padded msg string is :";
 	cout<<msg_padded<<endl;
-
+	cout << "binary sequence of padded msg string is: ";
+	//check if the string is correct by printing the bit sequence
+	// for (size_t i = 0; i < msg_padded.size(); ++i)
+	// {
+	// 	//print out the bit sequence of msg string
+	// 	cout << bitset<8>(msg_padded.c_str()[i]);
+	// }
+	// cout << endl;
 
 	//3. add length bits////////////
 
