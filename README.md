@@ -50,7 +50,8 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 * **Anamitra Mandal** - 170108049 
 * **Sri Harsha Vadathya** - 170108037 
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+
+See also the list of [contributors](https://github.com/sjain24/md5_algo/contributors) who participated in this project.
 
 <!-- ## License
 
