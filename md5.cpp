@@ -79,7 +79,7 @@ void F_block(string msg){
 
 	for(int i = 0; i < 16; i++){
 		for(int j = i*4; j < i*4 + 4; j++){
-			m[i] += (msg[j])*(int)(pow(2, (3-j%4)*8) + 0.5);
+			m[i] += (msg[j])*(int)(pow(2, (3-j%4)*7) + 0.5);
 		}
 	}
 
