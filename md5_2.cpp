@@ -12,6 +12,7 @@ using namespace std;
 typedef union uwb {//only the first member of a union can be initialized
     unsigned w;//32 bits
     unsigned char b[4];//memory is shared between all members
+    //b is the character representation of w
 } MD5union;
 
 typedef unsigned DigestArray[4];//DigestArray is another name for the array unsigned[4]
@@ -121,7 +122,11 @@ static unsigned *MD5Hash(string msg)
     for (grp = 0; grp < grps; grp++)
     {
         memcpy(mm.b, msg2 + os, 64);
+
+        //copy complete msg2 to mm.b
+        //mm.b is the 512bit memory block that will be working with
         for (q = 0; q < 4; q++)
+            //set abcd for this turn
             abcd[q] = h[q];
         for (p = 0; p < 4; p++)
         {
@@ -131,6 +136,7 @@ static unsigned *MD5Hash(string msg)
             o = O[p];
             for (q = 0; q < 16; q++)
             {
+                //perform 16 turns of operations
                 g = (m * q + o) % 16;
                 f = abcd[1] + rol(abcd[0] + fctn(abcd) + k[q + 16 * p] + mm.w[g], rotn[q % 4]);
 

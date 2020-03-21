@@ -48,39 +48,37 @@ static unsigned rol(unsigned r, short N)
 static unsigned *MD5Hash(string msg)
 {
 	int mlen = msg.length();
-	static unsigned h0[4] = {0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476};
-
+	static unsigned h[4] = {0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476};
+	//we dont need different h0 and h
 	static short M[] = {1, 5, 3, 7};
 	static short O[] = {0, 1, 5, 0};
 	static short rot0[] = {7, 12, 17, 22};
 	static short rot1[] = {5, 9, 14, 20};
 	static short rot2[] = {4, 11, 16, 23};
 	static short rot3[] = {6, 10, 15, 21};
-
-	static unsigned h[4];
+	// static unsigned h[4];
 	unsigned abcd[4];
 	short m, o, g;
 	unsigned f;
 	int q, p;
 	unsigned char *msg2;
-	
-	for (q = 0; q < 4; q++)
-		h[q] = h0[q];
-
+	// for (q = 0; q < 4; q++)
+	// 	h[q] = h0[q];
 	msg2 = (unsigned char *)malloc(64 * 1);
 	memcpy(msg2, msg.c_str(), mlen);
 	msg2[mlen] = (unsigned char)0x80;
 	q = mlen + 1;
 	while (q < 64)
 	{
+		//add padding bits
 		msg2[q] = 0;
 		q++;
 	}
 	
 	int numBytes = 8 * mlen;
 	q -= 8;
+	//add length bits
 	memcpy(msg2 + q, &numBytes, 4);
-	
 
 	unsigned word[16];
 	char message[64];
@@ -120,6 +118,7 @@ static unsigned *MD5Hash(string msg)
 			abcd[1] = f;
 		}
 	}
+	
 	for (p = 0; p < 4; p++)
 		h[p] += abcd[p];
 

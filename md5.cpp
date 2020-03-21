@@ -16,15 +16,6 @@ unsigned long long int K[64] = {
 	0xffeff47d, 0x85845dd1, 0x6fa87e4f, 0xfe2ce6e0, 0xa3014314, 0x4e0811a1,
 	0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391};
 
-// int md5_shift[64] = {7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 5, 9, 14, 20, 5, 9, 14, 20,
-// 					 5, 9, 14, 20, 5, 9, 14, 20, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23,
-// 					 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21};
-
-// int md5_indexes[64] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1, 6, 11, 0, 5, 10, 15, 4,
-// 					   9, 14, 3, 8, 13, 2, 7, 12, 5, 8, 11, 14, 1, 4, 7, 10, 13, 0, 3, 6, 9, 12, 15, 2,
-// 					   0, 7, 14, 5, 12, 3, 10, 1, 8, 15, 6, 13, 4, 11, 2, 9};
-
-
 unsigned long long int F(unsigned long long int x, unsigned long long int y, unsigned long long int z){
 	return (z ^ (x & (y ^ z)) );
 }
@@ -173,19 +164,7 @@ void F_block(string msg){
 	funct(&D, &A, &B, &C, 11, 10, 61, m, 3);
 	funct(&C, &D, &A, &B, 2, 15, 62, m, 3);
 	funct(&B, &C, &D, &A, 9, 21, 63, m, 3);
-	// A = (*Aptr) & (0xffffffff);
-	// B = (*Bptr) & (0xffffffff);
-	// C = (*Cptr) & (0xffffffff);
-	// D = (*Dptr) & (0xffffffff);
-	cout << A << " ";
-	cout << B << " ";
-	cout << C << " ";
-	cout << D << endl;
 
-	cout <<hex<< A <<" ";
-	cout << hex << B << " ";
-	cout << hex << C << " ";
-	cout << hex<<D << endl;
 	funct(&A, &B, &C, &D, 0, 7, 0, m, 0);
 	funct(&D, &A, &B, &C, 1, 12, 1, m, 0);
 	funct(&C, &D, &A, &B, 2, 17, 2, m, 0);
@@ -232,7 +211,6 @@ int main()
 	//we assume that msg string is not greater than 512 bits in size
 	string msg;
 	getline(cin, msg);
-
 	//2. padding//////////////
 	//convert to bits
 	cout << "binary sequence of msg string is: ";
@@ -242,23 +220,18 @@ int main()
 		cout << bitset<8>(msg.c_str()[i]);
 	}
 	cout << endl;
-
 	int len = msg.size();   //calculate length of message string
 	int len_bits = len * 8; //length in bits (1 char = 1 byte = 8 bits)
-
 	//calculate no of bits to be padded at the end
 	int len_pad = 512 - 64 - len_bits;
-
 	string pad_string_bit_seq = "1";
 	for (int i = 0; i < len_pad-1; i++)
 	{
 		pad_string_bit_seq += "0";
 	}
-
 	//convert string binary seqeunce to string
 	string pad_string = BinarytoString(pad_string_bit_seq);
 	string msg_padded = msg + pad_string; //append the padded character sequence at the end of msg
-
 	cout << "padded msg string is :";
 	cout << msg_padded << endl;
 	cout << "binary sequence of padded msg string is: ";
@@ -269,7 +242,6 @@ int main()
 		cout << bitset<8>(msg_padded.c_str()[i]);
 	}
 	cout << endl;
-
 	//3. add length bits////////////
 	string len_pad_string = "";
 	int len_temp = len * 8;
@@ -286,40 +258,16 @@ int main()
 		len_temp /= 2;
 	}
 	reverse(len_pad_string.begin(), len_pad_string.end());
-	// cout<<len_pad_string<<endl;
 	len_temp = 64 - len_pad_string.size();
-	// cout<<len_temp<<endl;
 	for (int i = 0; i < len_temp; i++)
 	{
 		len_pad_string = "0" + len_pad_string;
 	}
-	cout << "length bit" << endl;
-	// cout<<len_bits<<endl;
-	cout << len_pad_string << endl;
-
 	pad_string = BinarytoString(len_pad_string);
 	msg_padded += pad_string;
 	cout << "final padded string: ";
 	cout << msg_padded << endl;
-	// cout << msg_padded.size();
-	// for (size_t i = 0; i < msg_padded.size(); ++i)
-	// {
-	// 	//print out the bit sequence of msg string
-	// 	cout << bitset<8>(msg_padded.c_str()[i])<<endl;
-	// 	cout<<i+1<<endl;
-	// }
 	cout << endl;
-
 	F_block(msg_padded);
-
-	//call F-block procedure
-
-	//call G-block procedure
-
-	//call H-block procedure
-
-	//call I-block procedure
-	//store msg digest
-	cout<<"bfgkl";
 	return 0;
 }
