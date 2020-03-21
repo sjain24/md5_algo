@@ -184,8 +184,25 @@ void F_block(string msg){
 	cout << hex << B << " ";
 	cout << hex << C << " ";
 	cout << hex<<D << endl;
+	funct(&A, &B, &C, &D, 0, 7, 0, m, 0);
+	funct(&D, &A, &B, &C, 1, 12, 1, m, 0);
+	funct(&C, &D, &A, &B, 2, 17, 2, m, 0);
+	funct(&B, &C, &D, &A, 3, 22, 3, m, 0);
 
-	
+	funct(&A, &B, &C, &D, 4, 7, 4, m, 0);
+	funct(&D, &A, &B, &C, 5, 12, 5, m, 0);
+	funct(&C, &D, &A, &B, 6, 17, 6, m, 0);
+	funct(&B, &C, &D, &A, 7, 22, 7, m, 0);
+
+	funct(&A, &B, &C, &D, 8, 7, 8, m, 0);
+	funct(&D, &A, &B, &C, 9, 12, 9, m, 0);
+	funct(&C, &D, &A, &B, 10, 17, 10, m, 0);
+	funct(&B, &C, &D, &A, 11, 22, 11, m, 0);
+
+	funct(&A, &B, &C, &D, 12, 7, 12, m, 0);
+	funct(&D, &A, &B, &C, 13, 12, 13, m, 0);
+	funct(&C, &D, &A, &B, 14, 17, 14, m, 0);
+
 	cout<<hex<<11<<endl;
 }
 
