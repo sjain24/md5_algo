@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#include <vector>
+#include <string>
 using namespace std;
 
 unsigned long long int K[64] = {
@@ -202,6 +204,7 @@ string BinarytoString(string bit_stream)
 		output += c;
 	}
 	//correction
+	//
 	output.pop_back();
 	// cout << output;
 	return output;
@@ -300,5 +303,6 @@ int main()
 
 	//call I-block procedure
 	//store msg digest
+	cout<<"bfgkl";
 	return 0;
 }
