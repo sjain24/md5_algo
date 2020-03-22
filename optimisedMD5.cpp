@@ -49,7 +49,6 @@ static unsigned *MD5Hash(string msg)
 {
 	int mlen = msg.length();
 	static unsigned h[4] = {0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476};
-	//we dont need different h0 and h
 	static short M[] = {1, 5, 3, 7};
 	static short O[] = {0, 1, 5, 0};
 	static short rot0[] = {7, 12, 17, 22};
