@@ -76,6 +76,7 @@ static unsigned *MD5Hash(string msg)
 	
 	int numBytes = 8 * mlen;
 	q -= 8;
+
 	//add length bits
 	memcpy(msg2 + q, &numBytes, 4);
 
