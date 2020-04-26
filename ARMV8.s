@@ -41,12 +41,12 @@ ProcessInnerLoop    :   LDR X11 [X23, X9]//X11 = M[p]
                         LDR X12 [X24, X10]//X12 = O[q]
                         ADD X11, X11, X12//X11 = q*M[p]+O[p]
                         AND X11, X11, #15//X11 = (q*M[p]+O[p])%16
+                        LDRSW X14, [X20, #0] //X14 = abcd[0]
+                        LDRSW X15, [X20, #4] //X15 = abcd[1]
+                        LDRSW X16, [X20, #8] //X16 = abcd[2]
+                        LDRSW X17, [X20, #16]//X17 = abcd[3]
                         ADDI X12, XZR, X9//X12 = p
                         SUBS XZR, XZR, X12//check if p == 0
-                        LDR X14, [X20, #0] //X14 = abcd[0]
-                        LDR X15, [X20, #4] //X15 = abcd[1]
-                        LDR X16, [X20, #8] //X16 = abcd[2]
-                        LDR X17, [X20, #16]//X17 = abcd[3]
                         B.EQ IfpEqual0
                         SUBIS X12, X12, #1
                         B.EQ IfpEqual1
@@ -54,14 +54,13 @@ ProcessInnerLoop    :   LDR X11 [X23, X9]//X11 = M[p]
                         B.EQ IfpEqual2
                         SUBIS X12, X12, #1
                         B.EQ IfpEqual3
-EndofFunct:             LSL X13, X9, #3//X13 = 16*p
+EndofFunct:             LSL X13, X9, #4//X13 = 16*p
                         ADD X13, X13, X10//X13 = 16*p+q
                         LDR X13, [X21 , X13]//X13 = K[16*p+q]
                         //compute word[g]
                         LDR X17, [X26 , X11] //X1 = word[g]
                         LDR X14, [X20, #0] //X14 = abcd[0]
                         ADD X17,X17,X13 
-                        ADD X17,X17,X14
                         ADD X17,X17,X14
                         ADD X17,X17,X18 // first parameter for rol function
                         //X1 is 2nd parameter to rol function
