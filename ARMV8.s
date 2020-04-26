@@ -54,19 +54,29 @@ ProcessInnerLoop    :   LDR X11 [X23, X9]//X11 = M[p]
                         B.EQ IfpEqual2
                         SUBIS X12, X12, #1
                         B.EQ IfpEqual3
-                        LSL X13, X9, #3//X13 = 16*p
+EndofFunct:             LSL X13, X9, #3//X13 = 16*p
                         ADD X13, X13, X10//X13 = 16*p+q
                         LDR X13, [X21 , X13]//X13 = K[16*p+q]
-                        
+
 //X18 will store result of func(abcd) 
 //Assume X0 = 0b0000_0000_0000_0000_1111_1111_1111_1111
 IfpEqual0           :   AND X18,X14,X15
-                        EORI X14,X14,X0//not operation 
+                        EOR X14,X14,X0//not operation 
                         AND X14,X14,X16
-                        ORR X18,X18,X14
-IfpEqual1           :   
-IfpEqual2           :
-IfpEqual3           :
+                        ORR X18,X18,
+                        B EndofFunct
+IfpEqual1           :   AND X18,X14,X16
+                        EOR X17,X17,X0//not operation 
+                        AND X17,X17,X15
+                        ORR X18,X18,X17
+                        B EndofFunct
+IfpEqual2           :   AND X18,X15,X16
+                        EOR X18,X18,X17//xor operation 
+                        B EndofFunct
+IfpEqual3           :   EOR X17,X17,X0//not operation 
+                        ORR X18,X15,X17
+                        EOR X18,X18,X16
+                        B EndofFunct
 
 EndOfFComputation   :   ADDI X10, X10, #1
                         SUBIS XZR, X10, #16
